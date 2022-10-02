@@ -10,6 +10,9 @@ OBJS = obj/create.o obj/print.o obj/File.o
 # Specifying the Binary file
 BIN = bin/FileSystem
 
+# Export in zip file
+EXPORT_NAME = FileSystem.zip
+
 all: $(BIN)
 
 # Binary file generated
@@ -26,3 +29,6 @@ clean:
 	$(RM) -r obj/* bin/*
 run:
 	./$(BIN)
+export:
+	$(RM) $(EXPORT_NAME)
+	zip $(EXPORT_NAME) $(BIN)

@@ -1,6 +1,8 @@
 #include<stdio.h>
 #include<stdlib.h>
 #include<string.h>
+#include<fcntl.h> 
+#include<errno.h> 
 #include "file_system.h"
 
 // Basic Information
@@ -67,7 +69,7 @@ void create_file_system() {
 
     // sizeHDD - StartBlock
     sizeHDD_StartBlock = sizeHDD - size_Start_Block;
-    printf("sizeHDD: %ld\n",sizeHDD);
+    printf("sizeHDD - StartBlock: %ld\n",sizeHDD_StartBlock);
 
     // Size of the MetaData
     size_MetaData = sizeof(struct MetaData);
@@ -90,8 +92,96 @@ void create_file_system() {
     printf("Number of the Disk_Block: %ld\n", num_DiskBlock);
 
 
-
 //-------------------------------------------------------------------SettingUPMetaData-------------------------------------------------------
+
+//Inserting the Data into Start Block
+    SB.size_HDD = sizeHDD;
+    printf("SB.size_HDD: %ld\n",SB.size_HDD);
+    SB.start_MetaData = size_Start_Block;
+    printf("SB.start_MetaData: %ld\n",SB.start_MetaData);
+    SB.start_Data_Block = num_MetaData*size_MetaData;
+    printf("SB.start_Data_Block: %ld\n",SB.start_Data_Block);
+    SB.size_block = BLOCKSIZE;
+    printf("SB.size_block: %d\n",SB.size_block);
+
+
+// Creating the Array in of MetaData
+Inodes = malloc(sizeof(struct MetaData)*num_MetaData);
+
+    // Inserting the data into MetaData
+    for (int i = 0; i < num_MetaData; i++)
+    {
+        Inodes[i].file_number = -1;
+        Inodes[i].file_size = -1;
+        Inodes[i].first_Block = -1;
+        strcpy(Inodes[i].file_name,"Empty");
+    }
+    
+// Creating the Array of the MetaData
+DBK = malloc(sizeof(struct Disk_Block)*num_DiskBlock);
+
+    // Inserting the Data into DiskBlock
+    for (int i = 0; i < num_MetaData; i++)
+    {
+        DBK[i].Next_Data_Block = -1;
+        DBK[i].pos = 0;
+    }
+
+
+//-------------------------------------------------------------------Creating the File System-------------------------------------------------------
+
+    create_file();
+    sync_file_system();
+    printf("\nFile_System_Successfully_Created!!\n");
+}
+
+void sync_file_system(){
+
+// Opening the File
+    int file = open_file();
+
+// Writing the Start Block
+int wrt_SB = write(file,&SB,size_Start_Block);
+    if ( wrt_SB == size_Start_Block)
+    {
+        printf("\nStart Block Successfully Written!\n");
+    }
+    else{
+        perror("Error in Writing the Start Block!\n");
+    }
+
+// Writing the MetaData
+    long int wrt_IN = 0;
+    
+    for (long int i = 0; i < num_DiskBlock; i++)
+    {
+       long int temp2 =  write(file,&Inodes[i],size_MetaData);
+        wrt_IN = wrt_IN + temp2;
+    }
+    
+    if (wrt_IN == size_MetaData*num_MetaData)
+    {
+        printf("\nMetaData Successfully Written!\n");
+    }
+    else{
+        perror("Error in Writing the MetaData!\n");
+    }   
+    
+// Writing the Disk_Block
+    long int wrt_DSK = 0;
+    for (long int i = 0; i < num_DiskBlock; i++)
+    {
+       long int temp2 =  write(file,&DBK[i],size_Disk_Block);
+        wrt_DSK = wrt_DSK + temp2;
+    }
+    
+    if (wrt_DSK == size_Disk_Block*num_DiskBlock)
+    {
+        printf("\nDiskBlock Successfully Written!\n");
+    }
+    else{
+        perror("Error in Writing the DiskBlock!\n");
+    }
 
 }
 

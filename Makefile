@@ -33,7 +33,7 @@ all: $(BIN)
 # Binary file generated
 $(BIN): $(OBJS)
 	$(CC) $(OBJS) -o $@
-	./$(BIN)
+	# ./$(BIN)
 
 # Compile all .c and create .o using auto varibles($<) and ($@)
 # What they basically means is that same as above
@@ -56,3 +56,7 @@ release: $(BIN)
 
 debug: 
 	gdb ./$(BIN)
+
+build: clean
+build: all
+build: run

@@ -26,7 +26,6 @@ struct MetaData
 {
     long int file_size;
     long int first_Block;
-    long int Last_Block;
     long int file_number;
     char file_name[NAME];
 };
@@ -40,22 +39,21 @@ struct Disk_Block
 };
 
 
-
-
-
-
-
 //----------------------------------------Declaration of the File System Operation---------------------------------------------------
 
 // Creating the File System
 void create_file_system();
 
-
+// Sync the File System
+void sync_file_system();
 
 
 // --------------------------------------------------Input_Output_Handler-----------------------------------------------------------------
 
 long int input_long_int();
 
+void create_file();
+
+int open_file();
 
 

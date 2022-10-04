@@ -71,7 +71,7 @@ void create_empty_bit_map_DBK() {
 // Search Empty Bit
 long int search_empty_DBK() {
 
-    for (int i = 0; i < map_size_DBK; i++)
+    for (long int i = 0; i < map_size_DBK; i++)
     {
         if (BitMap_DBK[i] == 0)
         {
@@ -80,15 +80,13 @@ long int search_empty_DBK() {
         else
         {
             // printf("Case 2:\n");
-            for (int j = 0; j < 64; i++)
+            for (int j = 0; j < 64; j++)
             {
                 if (IS_BIT_SET(BitMap_DBK[i],j))
                 {
-                    // printf("Case 3:\n");
                     return i+j;
                 }
                 else{
-                    // printf("Case 4:\n");
                     continue;
                 }
             }
@@ -103,9 +101,9 @@ long int search_empty_DBK() {
 void Clear_Bit_DBK(long int number) {
 
     long int Index = number/BIT_BLOCK;
-    printf("Index: %ld\n",Index);
+    // printf("Index: %ld\n",Index);
     long int BIT_NUM = number % BIT_BLOCK;
-    printf("BIT: %ld\n",BIT_NUM);
+    // printf("BIT: %ld\n",BIT_NUM);
     CLR_BIT(BitMap_DBK[Index],BIT_NUM);
 }
 
@@ -162,7 +160,7 @@ void create_empty_bit_map_IN() {
 // Search Empty Bit
 long int search_empty_IN() {
 
-    for (int i = 0; i < map_size_IN; i++)
+    for (long int i = 0; i < map_size_IN; i++)
     {
         if (BitMap_IN[i] == 0)
         {
@@ -171,15 +169,13 @@ long int search_empty_IN() {
         else
         {
             // printf("Case 2:\n");
-            for (int j = 0; j < BIT_BLOCK; i++)
+            for (int j = 0; j < BIT_BLOCK; j++)
             {
                 if (IS_BIT_SET(BitMap_IN[i],j))
                 {
-                    // printf("Case 3:\n");
                     return i+j;
                 }
                 else{
-                    // printf("Case 4:\n");
                     continue;
                 }
             }
@@ -194,8 +190,8 @@ long int search_empty_IN() {
 void Clear_Bit_IN(long int number) {
 
     long int Index = number/BIT_BLOCK;
-    printf("Index: %ld\n",Index);
+    // printf("Index: %ld\n",Index);
     long int BIT_NUM = number % BIT_BLOCK;
-    printf("BIT: %ld\n",BIT_NUM);
+    // printf("BIT: %ld\n",BIT_NUM);
     CLR_BIT(BitMap_IN[Index],BIT_NUM);
 }

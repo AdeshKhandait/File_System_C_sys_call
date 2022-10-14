@@ -95,6 +95,7 @@ long int search_empty_DBK() {
         
     }
     printf("\nDisk is Full\n");
+    return -1;
 }
 
 // Setting the bit with Block
@@ -106,6 +107,16 @@ void Clear_Bit_DBK(long int number) {
     // printf("BIT: %ld\n",BIT_NUM);
     CLR_BIT(BitMap_DBK[Index],BIT_NUM);
 }
+
+
+// Setting the Bit with Disk
+void Set_Bit_DBK(long int number) {
+
+    long int Index = number/BIT_BLOCK;
+    long int Bit_Num = number % BIT_BLOCK;
+    SET_BIT(BitMap_DBK[Index],Bit_Num);
+}
+
 
 //-------------------------------------------------------------------INODES-------------------------------------------------------
 
@@ -184,6 +195,7 @@ long int search_empty_IN() {
         
     }
     printf("\nDisk is Full\n");
+    return -1;
 }
 
 // Setting the bit with Block
@@ -194,4 +206,12 @@ void Clear_Bit_IN(long int number) {
     long int BIT_NUM = number % BIT_BLOCK;
     // printf("BIT: %ld\n",BIT_NUM);
     CLR_BIT(BitMap_IN[Index],BIT_NUM);
+}
+
+// Setting the Bit
+void Set_Bit_IN(long int number) {
+
+    long int Index = number/BIT_BLOCK;
+    long int Bit_Num = number % BIT_BLOCK;
+    SET_BIT(BitMap_IN[Index],Bit_Num);
 }

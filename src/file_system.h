@@ -4,6 +4,9 @@
 #define BLOCKSIZE 1024
 #define NAME 256
 
+// Global File Descriptor
+int file;
+
 //-------------------------------------------------------------------Structures-------------------------------------------------------
 // StartBlock -> Stores Information
 // - Size of File System
@@ -100,8 +103,11 @@ long int input_long_int();
 
 void create_file();
 
-int open_file();
+// open File system Disk
+void open_file();
 
+// Close File system Disk
+void close_file();
 
 //-------------------------------------------------------------------BitMap-------------------------------------------------------
 
@@ -125,6 +131,8 @@ long int search_empty_DBK();
 // Set the Bit Disk BLock
 void Clear_Bit_DBK(long int number);
 
+// Set the BIt
+void Set_Bit_DBK(long int number);
 
 
 // INODES
@@ -146,3 +154,24 @@ long int search_empty_IN();
 
 // Set the Bit Disk BLock
 void Clear_Bit_IN(long int number);
+
+void Set_Bit_IN(long int number); 
+
+//-------------------------------------------------------------------File Handling-------------------------------------------------------
+
+long int allocate_file();
+
+void read_Inode(long int Inode_num);
+
+void update_Inode(long int Inode_num);
+
+// read the DiskBlock
+void read_DBK(long int DBK_num);
+
+// update the DBK
+void update_DBK( long int DBK_num);
+
+// Inserting the File
+void insert_file();
+
+void read_file(long file_num);

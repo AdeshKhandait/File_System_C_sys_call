@@ -6,6 +6,7 @@ CC=gcc
 DB = gdb
 
 # Specifying the Flags
+CFLAG = -Wno-implicit
 
 # SRC Directory
 SRC = src
@@ -32,13 +33,13 @@ all: $(BIN)
 
 # Binary file generated
 $(BIN): $(OBJS)
-	$(CC) $(OBJS) -o $@
+	$(CC) $(CFLAG) $(OBJS) -o $@
 	# ./$(BIN)
 
 # Compile all .c and create .o using auto varibles($<) and ($@)
 # What they basically means is that same as above
 $(OBJ)/%.o: $(SRC)/%.c
-	$(CC) -c $< -o $@
+	$(CC) $(CFLAG) -c $< -o $@
 
 # Removing the file
 clean: 
@@ -59,4 +60,4 @@ debug:
 
 build: clean
 build: all
-build: run
+build: run 

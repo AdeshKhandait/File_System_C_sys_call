@@ -92,7 +92,7 @@ void sync_file_system()
 {
 
     // Opening the File
-    int file = open_file();
+    open_file();
 
     // Writing the Start Block
     int wrt_SB = write(file, &SB, size_Start_Block);
